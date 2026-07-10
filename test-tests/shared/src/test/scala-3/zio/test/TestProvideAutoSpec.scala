@@ -26,7 +26,7 @@ object TestProvideAutoSpec extends ZIOBaseSpec {
         val appendBang: ZIO[StringService, Nothing, String] =
           ZIO.serviceWithZIO[StringService](_.append("!"))
 
-        val intService: ULayer[IntService] = ZLayer(Ref.make(0).map(IntService(_)))
+        val intService: ULayer[IntService]       = ZLayer(Ref.make(0).map(IntService(_)))
         val stringService: ULayer[StringService] =
           ZLayer(Ref.make("Hello").map(StringService(_)).debug("MAKING"))
 
@@ -64,13 +64,13 @@ object TestProvideAutoSpec extends ZIOBaseSpec {
       })
     }
 
-    trait Fly {}
+    trait Fly  {}
     object Fly {
       def live: URLayer[Spider, Fly]          = ZLayer.succeed(new Fly {})
       def manEatingFly: URLayer[OldLady, Fly] = ZLayer.succeed(new Fly {})
     }
 
-    trait Spider {}
+    trait Spider  {}
     object Spider {
       def live: ULayer[Spider] = ZLayer.succeed(new Spider {})
     }
